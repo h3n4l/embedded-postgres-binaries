@@ -143,10 +143,10 @@ $DOCKER_OPTS $IMG_NAME /bin/bash -ex -c 'echo "Starting building postgres binari
     ; fi \
     \
     && cd /usr/local/pg-build \
-    && cp /lib/*/libz.so.1 /lib/*/liblzma.so.5 /usr/lib/libossp-uuid.so.16 /usr/lib/*/libxml2.so.2 /usr/lib/*/libxslt.so.1 ./lib \
-    && cp /lib/*/libssl.so.1.0.0 /lib/*/libcrypto.so.1.0.0 ./lib || cp /usr/lib/*/libssl.so.1.0.0 /usr/lib/*/libcrypto.so.1.0.0 ./lib \
-    && if [ "$ICU_ENABLED" = true ]; then cp --no-dereference /usr/lib/*/libicudata.so* /usr/lib/*/libicuuc.so* /usr/lib/*/libicui18n.so* ./lib; fi \
-    && if [ -n "$POSTGIS_VERSION" ]; then cp --no-dereference /lib/*/libjson-c.so* /usr/lib/*/libsqlite3.so* ./lib ; fi \
+    && cp /lib/*/libz.so.1 /lib/*/liblzma.so.5 /usr/lib/libossp-uuid.so.16 /usr/lib/*/libxml2.so.2 /usr/lib/*/libxslt.so.1 ./lib/ \
+    && cp /lib/*/libssl.so.1.0.0 /lib/*/libcrypto.so.1.0.0 ./lib || cp /usr/lib/*/libssl.so.1.0.0 /usr/lib/*/libcrypto.so.1.0.0 ./lib/ \
+    && if [ "$ICU_ENABLED" = true ]; then cp --no-dereference /usr/lib/*/libicudata.so* /usr/lib/*/libicuuc.so* /usr/lib/*/libicui18n.so* ./lib/; fi \
+    && if [ -n "$POSTGIS_VERSION" ]; then cp --no-dereference /lib/*/libjson-c.so* /usr/lib/*/libsqlite3.so* ./lib/ ; fi \
     && find ./bin -type f \( -name "initdb" -o -name "pg_ctl" -o -name "postgres" \) -print0 | xargs -0 -n1 patchelf --set-rpath "\$ORIGIN/../lib" \
     && find ./lib -maxdepth 1 -type f -name "*.so*" -print0 | xargs -0 -n1 patchelf --set-rpath "\$ORIGIN" \
     && find ./lib/postgresql -maxdepth 1 -type f -name "*.so*" -print0 | xargs -0 -n1 patchelf --set-rpath "\$ORIGIN/.." \
@@ -158,4 +158,4 @@ $DOCKER_OPTS $IMG_NAME /bin/bash -ex -c 'echo "Starting building postgres binari
         bin/postgres \
         bin/pg_dump'
 # we use:
-# sudo ./build-postgres-debian.sh -v 14.2 -i ubuntu:20.04 -g 2.5.6 -o "-e DEBIAN_FRONTEND=noninteractive"
+# sudo ./build-postgres-debian.sh -v 14.2 -i ubuntu:18.04 -g 3.2.1 -o "-e DEBIAN_FRONTEND=noninteractive"
