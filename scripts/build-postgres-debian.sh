@@ -60,6 +60,7 @@ $DOCKER_OPTS $IMG_NAME /bin/bash -ex -c 'echo "Starting building postgres binari
         libperl-dev \
         python3-dev \
         tcl-dev \
+        sudo \
         \
     && sudo sed -i -e "s=^mozilla/DST_Root_CA_X3.crt=!mozilla/DST_Root_CA_X3.crt=" /etc/ca-certificates.conf \
     && sudo update-ca-certificates \
@@ -156,4 +157,5 @@ $DOCKER_OPTS $IMG_NAME /bin/bash -ex -c 'echo "Starting building postgres binari
         bin/pg_ctl \
         bin/postgres \
         bin/pg_dump'
-        
+# we use:
+# sudo ./build-postgres-debian.sh -v 14.2 -i ubuntu:20.04 -g 2.5.6 -o "-e DEBIAN_FRONTEND=noninteractive"
