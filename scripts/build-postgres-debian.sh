@@ -62,7 +62,7 @@ $DOCKER_OPTS $IMG_NAME /bin/bash -ex -c 'echo "Starting building postgres binari
         tcl-dev \
         sudo \
         \
-    && sudo apt-get install -y
+    && sudo apt-get install -y \
         libprotobuf-c-dev \
         libprotobuf-dev \
         protobuf-compiler \
