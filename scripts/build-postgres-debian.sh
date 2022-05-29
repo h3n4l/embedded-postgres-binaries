@@ -66,7 +66,7 @@ $DOCKER_OPTS $IMG_NAME /bin/bash -ex -c 'echo "Starting building postgres binari
         libprotobuf-c-dev \
         libprotobuf-dev \
         protobuf-compiler \
-        protobuf-c-compiler
+        protobuf-c-compiler \
         \
     && sudo sed -i -e "s=^mozilla/DST_Root_CA_X3.crt=!mozilla/DST_Root_CA_X3.crt=" /etc/ca-certificates.conf \
     && sudo update-ca-certificates \
