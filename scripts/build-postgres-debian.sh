@@ -63,6 +63,18 @@ $DOCKER_OPTS $IMG_NAME /bin/bash -ex -c 'echo "Starting building postgres binari
         sudo \
         libprotobuf-c-dev \
         \
+    && apt-get install autoconf automake libtool curl make g++ unzip git
+    && git clone https://github.com/protocolbuffers/protobuf.git
+    && cd protobuf
+    && git submodule update --init --recursive
+    && ./autogen.sh
+    && ./configure
+    && make -j$(nproc)
+    && make check
+    && sudo make install
+    && sudo ldconfig
+    && cd ..
+
     && sudo sed -i -e "s=^mozilla/DST_Root_CA_X3.crt=!mozilla/DST_Root_CA_X3.crt=" /etc/ca-certificates.conf \
     && sudo update-ca-certificates \
     && wget -O patchelf.tar.gz "https://nixos.org/releases/patchelf/patchelf-0.9/patchelf-0.9.tar.gz" \
