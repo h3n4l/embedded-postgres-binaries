@@ -31,7 +31,7 @@ ICU_ENABLED=$(echo "$PG_VERSION" | grep -qv '^9\.' && [ "$LITE_OPT" != true ] &&
 TRG_DIR=$PWD/bundle
 mkdir -p $TRG_DIR
 
-docker run -i --rm -v ${TRG_DIR}:/usr/local/pg-dist \
+docker run -i -v ${TRG_DIR}:/usr/local/pg-dist \
 -e PG_VERSION=$PG_VERSION \
 -e POSTGIS_VERSION=$POSTGIS_VERSION \
 -e ICU_ENABLED=$ICU_ENABLED \
